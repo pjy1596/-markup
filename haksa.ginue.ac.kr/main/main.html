@@ -1,0 +1,165 @@
+<!---- Jsp include files ..........-->
+
+ 
+
+
+
+
+	
+
+<!doctype html>
+<html>
+<header>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+
+
+<link href="../function/css/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css">
+<link href="../function/css/standard_style_ie10.css" rel="stylesheet" type="text/css"> 
+
+<!-- tab css  -->
+<link href="../function/css/tab.css" rel="stylesheet" type="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+
+
+<title>경인교육대학교</title>
+<!------ If You need Java operation, Insert statment as followin area -->
+
+<!--....  You must modify default script value for js run..................-->
+<script type="text/JavaScript" src="../function/action.js"></script>
+<script type="text/JavaScript" src="../function/jquery-1.9.0.min.js"></script>
+<script type="text/JavaScript">
+$(document).ready(function(){
+	var workFrameWidth = $('#workFrame', parent.document).width();
+	if(workFrameWidth >= 1408){
+		$("#framf", parent.document).attr('cols','5,1408,*');	
+	}else{
+		$("#framf", parent.document).attr('cols','5,*,0');
+	}
+});
+
+$(window).resize(function(){
+	var workFrameWidth = $('#workFrame', parent.document).width();
+	if(workFrameWidth >= 1408){
+		$("#framf", parent.document).attr('cols','5,1408,*');	
+	}else{
+		$("#framf", parent.document).attr('cols','5,*,0');
+	}
+});
+
+
+    function    processKey()    {
+    	if(event.keyCode == 116) {             
+            event.keyCode = 0; 
+            event.cancelBubble = true;
+            event.returnValue  = false;
+          
+    	}
+        if((event.altKey ==   true) && (event.keyCode == 115)) {             
+                event.keyCode = 0;
+                event.cancelBubble = true;
+                event.returnValue  = false;
+              
+        }
+        if((event.ctrlKey == true && (event.keyCode == 78  || event.keyCode ==82)) 
+            (event.keyCode >=112 && event.keyCode <= 123) ) {
+                event.keyCode = 0;
+                event.cancelBubble = true;
+                event.returnValue  = false;
+		}
+    }
+    
+    
+    function openWinModal(surl, wvalue ,hvalue,left,top,value1)	{
+ 	   var left = left;
+ 	   var top = top;
+ 	   width = wvalue;
+ 	   iheight = hvalue;
+ 	   
+ 	   center_str = "no";
+ 	   hide_str = "no";
+ 	   help_str = "no";
+ 	   
+ 	   resizeable_str = "no";
+ 	   scroll_str = "yes";
+ 	   statusbar_str = "no";  //no
+ 	   
+ 	   var m_option = "dialogLeft:" + left + "px; dialogTop:" + top + "px; dialogWidth:"+ width + "px; dialogHeight:" + iheight +"px;";
+ 	   m_option = m_option + "center:" + center_str + "; dialogHide:" + hide_str + "; help:" + help_str + ";";
+ 	   m_option = m_option + "resizable:" + resizeable_str + "; scroll:" + scroll_str + "; status:" + statusbar_str + ";";
+
+ 	   var args = new Array();
+ 	   args[0] = value1;
+ 	   
+ 	   try {
+ 	       window.showModalDialog(surl, args, m_option);
+ 	   } catch  (exception) {
+ 		   alert("Internet Explorer브라우저에서 실행하시면 현재 진행되는 설문조사에 응답하실 수 있습니다.");
+ 	   }
+
+ 	   //document.getElementById(id).value = window.message;
+ 	}
+     
+     function openModal(){
+    	     	 
+    	 // 설문조사
+         var gbn1 = "";
+         var gbn2 = "";
+         var value1 = "";
+           
+		var s_user_idnt_yr = "15";
+		var s_grup_menu = "4010";
+         
+         if(s_grup_menu == "4010" && s_user_idnt_yr == "19"){ 
+	         if(gbn1 != "0"){
+	             if(gbn2 == "0"){
+	       		   var find_url ="";
+	       		   /* (방법1)모달 팝업창 형태 cc1030.jsp*/ 
+	       		       //openWinModal(find_url,1140,650,50,50,value1);
+	       		   /* (방법2)웹페이지 형태  serve_code를 처리 페이지에서 입력  cc1040.jsp*/ 
+	       		       location.replace(find_url);
+	       		   
+	       		       return true;
+	             }else{
+	                 //return true;
+	             }
+	         }else{
+	             //return true;
+	         }
+         }
+        
+         
+    	 // 비밀번호 변경 메세지
+    	 var pwd = "1";
+    	 if(pwd != "0"){
+    		 alert("비밀번호를 변경한지 3개월이 지났습니다. 비밀번호를 변경하세요.\n(학사정보시시스템 비밀번호 변경시 포털시스템과 홈페이지 비밀번호도 동일하게 변경됩니다.)");
+    	 }
+ 	}
+     document.onkeydown = processKey;
+</script>
+<!--... This area for program  js code .......................................-->
+	<script language="JavaScript" type="text/JavaScript">
+
+	</script>	
+
+</header>
+
+<frameset rows="50,*" cols="*" frameborder="0" border="0" framespacing="0" onload="openModal();"  id="frams">
+  <frame src="./top_stnt.jsp" name="topFrame" scrolling="NO" noresize id="topFrame">
+  <frameset rows="*" cols="185,*" framespacing="0" frameborder="NO" border="0" id="framc">
+    	<frame src="./left.jsp" name="leftFrame">	
+    	<frameset rows="30,*" framespacing="0" frameborder="0" border="0" id="framc">
+  			<frame src="./button02.jsp" name="buttonFrame" scrolling="NO" noresize>
+    		<frameset rows="*" cols="0,*,0" framespacing="0" frameborder="NO" border="0" id="framf">
+				<frame src="../jsp/common/init2.jsp" noresize>
+				<frame src="" name="workFrame" scrolling="NO" noresize id="workFrame">
+				<frame src="../jsp/common/init2.jsp" noresize>
+			</frameset>
+    	</frameset>	
+  </frameset>
+</frameset>
+
+
+<noframes>
+<body>
+</body></noframes>
+</html>

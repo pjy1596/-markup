@@ -1,0 +1,575 @@
+<!doctype html>
+
+
+
+
+
+
+	
+
+<html>
+<header>
+
+
+<link href="../function/css/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css">
+<link href="../function/css/standard_style_ie10.css" rel="stylesheet" type="text/css"> 
+
+<!-- tab css  -->
+<link href="../function/css/tab.css" rel="stylesheet" type="text/css"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+<body Oncontextmenu='return false'  leftmargin='10' topmargin='1' marginwidth='0' marginheight='0'  style="height: 30px; overflow: hidden;" 
+    onload="frm1.submit();"
+    onclick="bset(b_set);bodyset(setvalue);">
+<form name="frm1" action="../sb/sbm4024.jsp" method="post" target="frame4">
+
+<input type="hidden" name="save_gubn" value="1">
+<input type="hidden" name="schl_year" value="2020"><!--년도-->
+<input type="hidden" name="schl_smst" value="2"><!--학기-->
+<input type="hidden" name="stnt_numb" value="15161110">
+<input type="hidden" name="dept_code" value="1061"><!--학과-->
+<input type="hidden" name="jeon_code" value="1061">
+
+<input type="hidden" name="lctr_clas" value="20">
+<input type="hidden" name="gang_year" value="4">
+
+<input type="hidden" name="entr_gubn" value="1">
+<input type="hidden" name="chck_flag" value="1">
+<input type="hidden" name="selt_code" value="2">
+<input type="hidden" name="selt_gubn" value="1220">
+<input type="hidden" name="entr_date" value="2015">
+<input type="hidden" name="schl_stat" value="1">
+<input type="hidden" name="grup_code" value="40">
+<input type="hidden" name="stnt_sexc"  value="1">
+<input type="hidden" name="schl_stat_name"  value="복학">
+<input type="hidden" name="subj_optn" value="N">	
+<div>
+<table>
+	<tr>
+		<td class="desc_title" style="width: 100px;">개설강좌 조회 </td>
+	    <td style="width: 200px; border: none; text-align: center;">
+	       	<input type="radio" name="subj_kind" style="border=0" value="99" onclick="click_submit();" >재이수
+	       	<input type="radio" name="subj_kind" style="border=0" value="98" onclick="click_submit();" >대체
+ 			<input type="radio" style="border=0" name="subj_kind" value="" onclick="click_submit();" checked>강좌
+		</td>
+   	    <td style="width: 50px; border: none; text-align: right;">대영역: </td>
+   	    <td style="width: 55px; border: none;">	<select name='subj_main' >
+		<option value=''>----</option>		<Option value='10'>	교양</option>
+		<Option value='20'>	전공</option>
+		<Option value='30'>	자선</option>
+		<Option value='40'>	심화</option>
+		<Option value='50'>	논문</option>
+		<Option value='60'>	실습</option>
+		<Option value='70'>	봉사</option>
+		<Option value='80'>	학급</option>
+		<Option value='81'>	교직</option>
+		<Option value='85'>	비교과</option>
+		<Option value='90'>	졸업인증</option>
+		<Option value='100'>	교사자격인증</option>
+		<Option value='110'>	졸업논문</option>
+	</select>
+</td>
+   	    <td style="width: 45px; border: none;">중영역: </td>
+   	    <td style="width: 140px; border: none;">	<select name='subj_grp1' >
+		<option value=''>----</option>		<Option value='9'>	교과교육</option>
+		<Option value='0'>	없음</option>
+		<Option value='1'>	인문학</option>
+		<Option value='2'>	사회과학</option>
+		<Option value='3'>	자연과학</option>
+		<Option value='4'>	예술.체육</option>
+		<Option value='5'>	외국어ㆍ생활과학</option>
+		<Option value='6'>	교직교양</option>
+		<Option value='7'>	교육학</option>
+		<Option value='8'>	유아교육</option>
+		<Option value='10'>	실기</option>
+		<Option value='11'>	개량활동</option>
+		<Option value='12'>	졸업눈문</option>
+		<Option value='13'>	봉사활동</option>
+		<Option value='14'>	교직이론</option>
+		<Option value='15'>	교직소양</option>
+		<Option value='16'>	기초역량</option>
+		<Option value='17'>	학문역량</option>
+		<Option value='18'>	창의역량</option>
+		<Option value='19'>	교육실습</option>
+		<Option value='20'>	비교과교육</option>
+		<Option value='21'>	교과교육</option>
+		<Option value='22'>	교과실기</option>
+		<Option value='23'>	인성역량</option>
+	</select>
+
+   	        <input type="hidden" name="schl_grad" value="">
+   	    </td>
+		<td style="width: 50px; border: none; color: red">과목검색 </td>
+    	<td style="width: 90px; border: none;"><input type="text" name="subj_code_name" size="12" value=""></td>
+    	<td width="*" style="border: none; text-align: left;">
+    		<input type="button" name="btn" value="검 색" onclick="frm1.submit();">
+    	</td>
+	</tr>
+</table>
+</div>
+</form>
+
+
+<title>개설강좌</title>
+<!--  Variable and record Define area.      -->
+
+
+<script type="text/JavaScript">
+	var quee = parent.frame3.quee; 
+	var sin = parent.frame1.sin;
+	
+	var b_set = "";
+	var setvalue = "frm1,frame4,../sb/sbm4024.jsp"
+	
+	function value_chk() {
+	  return "true";
+	}
+
+   function subj_inst(row,val){
+      var f = document.frm1;
+      var temp = val.split(",");
+      //schl_year,schl_smst,gang_sqnc,hban_clas,subj_code_name,
+      //schl_grad,subj_unit,lesn_cama,sin_capa,subj_code,
+      //entr_gubn,dept_code,subj_kind,subj_grp1,subj_grp2,subj_grp3,selt_sqnc
+                       
+      f.schl_year.value = temp[0];
+      f.schl_smst.value = temp[1];
+      f.gang_sqnc.value = temp[2];
+      f.hban_clas.value = temp[3];
+      f.subj_kind.value = temp[12];
+      f.gang_year.value = sin.gang_year;
+      
+      //수강신청 과목 정보
+      sin.gang_grad =  temp[5];
+      sin.gang_unit =  Number(temp[6]);
+	  sin.gang_lesn =  Number(temp[7]);
+	  sin.gang_shin =  Number(temp[8]);
+	  
+      sin.gang_subj =  temp[9];  	  
+      sin.gang_entr =  temp[10];
+      sin.gang_dept =  temp[11];
+      sin.gang_sqnc =  temp[2];
+      sin.gang_hban =  temp[3];
+
+      sin.subj_kind =  temp[12];     
+      sin.subj_grp1 =  temp[13];
+      sin.subj_grp2 =  temp[14];
+      sin.subj_grp3 =  temp[15];
+      sin.selt_sqnc =  temp[16];
+      
+      sin.count = temp[17];
+      
+      /* 2014.10.31 박의신 (남영성 선생님 요청 2014.09.18)
+      수강신청시 2014학년도 1학기 이후에 수강한 과목 중 낙제한 과목을 재이수하는 경우에는 
+      “재이수 수강과목이므로 취득할 수 있는 성적은 B+이하입니다” 메시지를 띄워줄 수 있도록 수정 */
+/*       if(f.take_gubn.value == '99'){
+    	  var period = temp[0]+temp[1];
+    	  if(period >= 20141){
+    		  alert('재이수 수강과목이므로 취득할 수 있는 성적은 B+이하입니다.');
+    	  }
+      } */
+      var quee_key = temp[12]+temp[13]+temp[14]+temp[15];
+      
+	  if(sin.grup_code == "10" && document.frm1.chck_flag.value != "1") {
+	      vn_con = confirm('◀ '+temp[4]+' ▶ 을(를) 수강신청 하시겠습니까?  \n\n  [확인]을 누르시면, 신청됩니다.');
+	      if ( vn_con == true  ){
+	         frm1.submit();
+	         return true;
+	      } else { return false;}	  
+	  }
+	  //최대수강학점_check... 서울 군사학은 수강신청제한학점에 포함되지 않음
+	  if(sin.hmax_unit < (sin.shin_unit + sin.gang_unit)) {
+	  		alert("0.최대 수강신청 학점을 초과 했습니다..");
+	  		return false;
+	  }
+		//수강가능 학년_check..(상위 학년 수강금지)
+		//2017.08.10 박원희 대체과목 신청 가능
+		
+			if( sin.gang_year < sin.gang_grad)	{
+				alert("1.수강학년 제한을 초과 했습니다. ..");	return false;	
+			}
+			//영역 중복 check
+			//2017.08.10 박원희 대체과목 신청 가능
+			if(Number(sin.selt_sqnc) > 0 ) {
+				var rtn =  quee.popdata(quee_key,"add");
+				if(rtn > 0)  {
+					alert("2.선택과목수 제한을  초과 했습니다. .." + rtn);
+					return false;
+				}
+			}
+	  	
+
+      vn_con = confirm('◀ '+temp[4]+' ▶ 을(를) 수강신청 하시겠습니까?  \n\n  [확인]을 누르시면, 신청됩니다.');
+      if ( vn_con == true  ){
+         frm1.submit();
+      } else { }
+   }
+</script>
+</header>
+<body Oncontextmenu='return false'  leftmargin='10' topmargin='1' marginwidth='0' marginheight='0'  onclick="bset(b_set);bodyset(setvalue);">
+<form name="frm1" action="../sb/sbm4023s.jsp" method="post" target="frame9">
+
+<input type="hidden" name="schl_year" value="2020"><!--년도-->
+<input type="hidden" name="schl_smst" value="2"><!--학기-->
+<input type="hidden" name="gang_sqnc" value=""><!--강좌번호_f-->
+<input type="hidden" name="hban_clas" value=""><!--개설반_f-->	
+<input type="hidden" name="lctr_clas" value="20"><!--수강반_f-->
+<input type="hidden" name="stnt_numb" value="15161110"><!--학번-->
+<input type="hidden" name="dept_code" value="1061">
+<input type="hidden" name="jeon_code" value="1061">
+<input type="hidden" name="subj_kind" value="">
+<input type="hidden" name="take_gubn" value="">
+<input type="hidden" name="opti_flag" value="T">
+<input type="hidden" name="save_gubn" value="1">
+<input type="hidden" name="selt_code" value="2">
+<input type="hidden" name="selt_gubn" value="1220">
+<input type="hidden" name="time_flag" value="2">
+<input type="hidden" name="cmps_gubn" value="">
+<input type="hidden" name="entr_gubn" value="1">
+<input type="hidden" name="gang_year" value="4">
+<input type="hidden" name="chck_flag" value="1">
+<input type="hidden" name="lgic_gubn" value="0">
+<input type="hidden" name="list_gubn" value="false">
+
+<div id="listTit">
+<table>
+<col width="4%"><col width="4%"><col width="7%"><col width="7%">
+<col width="7%"><col width="7%"><col width="4%"><col width="20%">
+<col width="4%"><col width="4%"><col width="9%"><col width="6%">
+<col width="5%"><col width="5%"><col width="7%">
+<tr class="d_green">
+    <th>학년</th>
+    <th>개설반</th>
+    <th>입학구분</th>
+    <th>대영역</th>
+    <th>중영역</th>
+    <th>세부</th>
+    <th>구분</th>
+    <th>과 목 명</th>
+    <th>학점</th>
+    <th>P/F제</th>
+    <th>담당교수</th>
+    <th>강의시간</th>
+    <th>제한인원</th>
+    <th>신청인원</th>
+    <th></th>
+</tr>
+</table>
+</div>
+
+<div id="list">
+<table>
+
+<script type='text/javascript'>list();</script>
+<tr id=row1 align=center class='odd'  style=cursor:hand height=25 onclick=TdColorNew('1')>
+	<td width=4%>4</td>
+	<td width=4%>A</td>
+	<td width=7%>일반</td>
+	<td width=7%>교양</td>
+	<td width=7%>창의역량</td>
+	<td width=7%>창의</td>
+	<td width=4%>필수</td>
+	<td width=20% align=left>경인중점</td>
+	<td width=4%>2</td>
+	<td width=4%></td>
+	<td width=9%>오기성</td>
+	<td width=6% align=left> 화(6/7/8)</td>
+	<td width=5%>28</td>
+	<td width=5%>28</td>
+	<td width=7%><input type=button name=chk onclick="subj_inst('1','2020,2,241008356,A,경인중점,4,2,28,28,008356,1,1061,10,18,11,2,0,')" value=신청 style=cursor:hand></td>
+</tr>
+<script language="JavaScript" type="text/JavaScript">  
+   function autoForm() {                      
+                               } 
+</script>                                                  
+
+<tr id=row2 align=center class='even'  style=cursor:hand height=25 onclick=TdColorNew('2')>
+	<td>4</td>
+	<td>B</td>
+	<td>일반</td>
+	<td>교양</td>
+	<td>창의역량</td>
+	<td>창의</td>
+	<td>필수</td>
+	<td align=left>경인중점</td>
+	<td>2</td>
+	<td></td>
+	<td>김종국</td>
+	<td align=left> 화(6/7/8)</td>
+	<td>28</td>
+	<td>28</td>
+	<td><input type=button name=chk onclick="subj_inst('2','2020,2,241008356,B,경인중점,4,2,28,28,008356,1,1061,10,18,11,2,0,')" value=신청 style=cursor:hand></td>
+</tr>
+
+<tr id=row3 align=center class='odd'  style=cursor:hand height=25 onclick=TdColorNew('3')>
+	<td>4</td>
+	<td>C</td>
+	<td>일반</td>
+	<td>교양</td>
+	<td>창의역량</td>
+	<td>창의</td>
+	<td>필수</td>
+	<td align=left>경인중점</td>
+	<td>2</td>
+	<td></td>
+	<td>김철호</td>
+	<td align=left> 화(6/7/8)</td>
+	<td>28</td>
+	<td>28</td>
+	<td><input type=button name=chk onclick="subj_inst('3','2020,2,241008356,C,경인중점,4,2,28,28,008356,1,1061,10,18,11,2,0,')" value=신청 style=cursor:hand></td>
+</tr>
+
+<tr id=row4 align=center class='even'  style=cursor:hand height=25 onclick=TdColorNew('4')>
+	<td>4</td>
+	<td>D</td>
+	<td>일반</td>
+	<td>교양</td>
+	<td>창의역량</td>
+	<td>창의</td>
+	<td>필수</td>
+	<td align=left>경인중점</td>
+	<td>2</td>
+	<td></td>
+	<td>김주연</td>
+	<td align=left> 화(6/7/8)</td>
+	<td>28</td>
+	<td>28</td>
+	<td><input type=button name=chk onclick="subj_inst('4','2020,2,241008356,D,경인중점,4,2,28,28,008356,1,1061,10,18,11,2,0,')" value=신청 style=cursor:hand></td>
+</tr>
+
+<tr id=row5 align=center class='odd'  style=cursor:hand height=25 onclick=TdColorNew('5')>
+	<td>4</td>
+	<td>E</td>
+	<td>일반</td>
+	<td>교양</td>
+	<td>창의역량</td>
+	<td>창의</td>
+	<td>필수</td>
+	<td align=left>경인중점</td>
+	<td>2</td>
+	<td></td>
+	<td>김연옥</td>
+	<td align=left> 화(6/7/8)</td>
+	<td>28</td>
+	<td>28</td>
+	<td><input type=button name=chk onclick="subj_inst('5','2020,2,241008356,E,경인중점,4,2,28,28,008356,1,1061,10,18,11,2,0,')" value=신청 style=cursor:hand></td>
+</tr>
+
+<tr id=row6 align=center class='even'  style=cursor:hand height=25 onclick=TdColorNew('6')>
+	<td>4</td>
+	<td>F</td>
+	<td>일반</td>
+	<td>교양</td>
+	<td>창의역량</td>
+	<td>창의</td>
+	<td>필수</td>
+	<td align=left>경인중점</td>
+	<td>2</td>
+	<td></td>
+	<td>박은진</td>
+	<td align=left> 화(6/7/8)</td>
+	<td>28</td>
+	<td>6</td>
+	<td><input type=button name=chk onclick="subj_inst('6','2020,2,241008356,F,경인중점,4,2,28,6,008356,1,1061,10,18,11,2,0,')" value=신청 style=cursor:hand></td>
+</tr>
+
+<tr id=row7 align=center class='odd'  style=cursor:hand height=25 onclick=TdColorNew('7')>
+	<td>4</td>
+	<td>G</td>
+	<td>일반</td>
+	<td>교양</td>
+	<td>창의역량</td>
+	<td>창의</td>
+	<td>필수</td>
+	<td align=left>경인중점</td>
+	<td>2</td>
+	<td></td>
+	<td>한진수</td>
+	<td align=left> 화(6/7/8)</td>
+	<td>28</td>
+	<td>28</td>
+	<td><input type=button name=chk onclick="subj_inst('7','2020,2,241008356,G,경인중점,4,2,28,28,008356,1,1061,10,18,11,2,0,')" value=신청 style=cursor:hand></td>
+</tr>
+
+<tr id=row8 align=center class='even'  style=cursor:hand height=25 onclick=TdColorNew('8')>
+	<td>4</td>
+	<td>H</td>
+	<td>일반</td>
+	<td>교양</td>
+	<td>창의역량</td>
+	<td>창의</td>
+	<td>필수</td>
+	<td align=left>경인중점</td>
+	<td>2</td>
+	<td></td>
+	<td>박재근</td>
+	<td align=left> 화(6/7/8)</td>
+	<td>28</td>
+	<td>28</td>
+	<td><input type=button name=chk onclick="subj_inst('8','2020,2,241008356,H,경인중점,4,2,28,28,008356,1,1061,10,18,11,2,0,')" value=신청 style=cursor:hand></td>
+</tr>
+
+<tr id=row9 align=center class='odd'  style=cursor:hand height=25 onclick=TdColorNew('9')>
+	<td>4</td>
+	<td>I</td>
+	<td>일반</td>
+	<td>교양</td>
+	<td>창의역량</td>
+	<td>창의</td>
+	<td>필수</td>
+	<td align=left>경인중점</td>
+	<td>2</td>
+	<td></td>
+	<td>윤성준</td>
+	<td align=left> 화(6/7/8)</td>
+	<td>28</td>
+	<td>28</td>
+	<td><input type=button name=chk onclick="subj_inst('9','2020,2,241008356,I,경인중점,4,2,28,28,008356,1,1061,10,18,11,2,0,')" value=신청 style=cursor:hand></td>
+</tr>
+
+<tr id=row10 align=center class='even'  style=cursor:hand height=25 onclick=TdColorNew('10')>
+	<td>4</td>
+	<td>J</td>
+	<td>일반</td>
+	<td>교양</td>
+	<td>창의역량</td>
+	<td>창의</td>
+	<td>필수</td>
+	<td align=left>경인중점</td>
+	<td>2</td>
+	<td></td>
+	<td>김형삼</td>
+	<td align=left> 화(6/7/8)</td>
+	<td>28</td>
+	<td>15</td>
+	<td><input type=button name=chk onclick="subj_inst('10','2020,2,241008356,J,경인중점,4,2,28,15,008356,1,1061,10,18,11,2,0,')" value=신청 style=cursor:hand></td>
+</tr>
+
+<tr id=row11 align=center class='odd'  style=cursor:hand height=25 onclick=TdColorNew('11')>
+	<td>4</td>
+	<td>K</td>
+	<td>일반</td>
+	<td>교양</td>
+	<td>창의역량</td>
+	<td>창의</td>
+	<td>필수</td>
+	<td align=left>경인중점</td>
+	<td>2</td>
+	<td></td>
+	<td>장준형</td>
+	<td align=left> 화(7/8/9)</td>
+	<td>28</td>
+	<td>28</td>
+	<td><input type=button name=chk onclick="subj_inst('11','2020,2,241008356,K,경인중점,4,2,28,28,008356,1,1061,10,18,11,2,0,')" value=신청 style=cursor:hand></td>
+</tr>
+
+<tr id=row12 align=center class='even'  style=cursor:hand height=25 onclick=TdColorNew('12')>
+	<td>4</td>
+	<td>L</td>
+	<td>일반</td>
+	<td>교양</td>
+	<td>창의역량</td>
+	<td>창의</td>
+	<td>필수</td>
+	<td align=left>경인중점</td>
+	<td>2</td>
+	<td></td>
+	<td>장인실</td>
+	<td align=left> 화(6/7/8)</td>
+	<td>28</td>
+	<td>28</td>
+	<td><input type=button name=chk onclick="subj_inst('12','2020,2,241008356,L,경인중점,4,2,28,28,008356,1,1061,10,18,11,2,0,')" value=신청 style=cursor:hand></td>
+</tr>
+
+<tr id=row13 align=center class='odd'  style=cursor:hand height=25 onclick=TdColorNew('13')>
+	<td>4</td>
+	<td>M</td>
+	<td>일반</td>
+	<td>교양</td>
+	<td>창의역량</td>
+	<td>창의</td>
+	<td>필수</td>
+	<td align=left>경인중점</td>
+	<td>2</td>
+	<td></td>
+	<td>김차명/김택수/김호/유철민</td>
+	<td align=left> 화(6/7/8)</td>
+	<td>28</td>
+	<td>28</td>
+	<td><input type=button name=chk onclick="subj_inst('13','2020,2,241008356,M,경인중점,4,2,28,28,008356,1,1061,10,18,11,2,0,')" value=신청 style=cursor:hand></td>
+</tr>
+
+<tr id=row14 align=center class='even'  style=cursor:hand height=25 onclick=TdColorNew('14')>
+	<td>4</td>
+	<td>A</td>
+	<td>일반</td>
+	<td>교양</td>
+	<td>창의역량</td>
+	<td>창의</td>
+	<td>택1</td>
+	<td align=left>조직리더십사례연구(ROTC)</td>
+	<td>2</td>
+	<td></td>
+	<td>rotc</td>
+	<td align=left> 금(6/7/8)</td>
+	<td>15</td>
+	<td>9</td>
+	<td><input type=button name=chk onclick="subj_inst('14','2020,2,241008480,A,조직리더십사례연구(ROTC),4,2,15,9,008480,1,1061,10,18,11,1,1,')" value=신청 style=cursor:hand></td>
+</tr>
+
+<tr id=row15 align=center class='odd'  style=cursor:hand height=25 onclick=TdColorNew('15')>
+	<td>4</td>
+	<td>10</td>
+	<td>일반</td>
+	<td>전공</td>
+	<td>교과교육</td>
+	<td>통합교과교육</td>
+	<td>필수</td>
+	<td align=left>통합교과교육론</td>
+	<td>1</td>
+	<td></td>
+	<td>박수련</td>
+	<td align=left> 목(1/2)</td>
+	<td>36</td>
+	<td>36</td>
+	<td><input type=button name=chk onclick="subj_inst('15','2020,2,241008359,10,통합교과교육론,4,1,36,36,008359,1,1061,20,21,15,0,0,')" value=신청 style=cursor:hand></td>
+</tr>
+
+<tr id=row16 align=center class='even'  style=cursor:hand height=25 onclick=TdColorNew('16')>
+	<td>4</td>
+	<td>10</td>
+	<td>일반</td>
+	<td>교직</td>
+	<td>교직소양</td>
+	<td>없음</td>
+	<td>필수</td>
+	<td align=left>생활지도와상담</td>
+	<td>2</td>
+	<td></td>
+	<td>김선경</td>
+	<td align=left> 수(6/7/8)</td>
+	<td>36</td>
+	<td>36</td>
+	<td><input type=button name=chk onclick="subj_inst('16','2020,2,241001163,10,생활지도와상담,4,2,36,36,001163,1,1061,81,15,0,1,0,')" value=신청 style=cursor:hand></td>
+</tr>
+
+
+
+</table>
+</div>
+<div id="count"> 
+<table class="border">
+<tr>
+	<td>
+		<b>16 건을 검색하였습니다. </b>
+	</td>
+</tr>
+</table> 
+</div>
+</form>
+	<script src="../css/disColor.js"></script>
+	<script src="../css/list.js"></script>
+	<script src="../css/subaction.js"></script>
+	<script src="../css/jquery- 1.9.0.min.js"></script>
+
+</body>
+</html>

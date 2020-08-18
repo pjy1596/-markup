@@ -1,0 +1,106 @@
+#tab_box {
+  min-width: 700px;
+  border-bottom: 1px solid #1a47f1;
+  width: 100%;
+}
+ul.tab {
+  height: 29px;
+  text-align: left;
+  padding: 0px;
+  font-size: 0px;
+  margin-right: 15px;
+  list-style-type: none;
+}
+
+.tab li {
+  padding: 0px;
+  margin-top: 0px;
+  margin-right: 3px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+  display: inline;
+}
+.tab li a {
+  color: #777;
+  line-height: 28px;
+  padding-top: 0px;
+  padding-right: 6px;
+  padding-bottom: 0px;
+  padding-left: 6px;
+  font-size: 11px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  text-decoration: none;
+  border-top-color: #1a47f1;
+  border-right-color: #1a47f1;
+  border-bottom-color: #1a47f1;
+  border-left-color: #1a47f1;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: hidden;
+  border-left-style: solid;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  display: inline-block;
+  position: relative;
+  outline-width: medium;
+  outline-style: none;
+  outline-color: invert;
+  font-size-adjust: none;
+  font-stretch: normal;
+  background-color: white;
+  background-attachment: scroll;
+  background-repeat: repeat-x;
+  background-position: 0px;
+  cursor: pointer;
+}
+.tab li a.selected {
+  font-weight: bold;
+  color: #fff;
+  border-color: #1a47f1;
+  border-bottom-style: none;
+  border-bottom-width: medium;
+  border-bottom-color: currentColor;
+  z-index: 3;
+  background-image: none;
+  background-attachment: scroll;
+  background-repeat: repeat;
+  background-position: 0%;
+  background-color: #1a47f1;
+  border-top-color: #1a47f1;
+  border-right-color: #1a47f1;
+  border-bottom-color: #1a47f1;
+  border-left-color: #1a47f1;
+}
+.tab li a.hover {
+  font-weight: bold;
+  color: #fff;
+  border-color: #1a47f1;
+  border-bottom-style: none;
+  border-bottom-width: medium;
+  border-bottom-color: currentColor;
+  z-index: 3;
+  background-image: none;
+  background-attachment: scroll;
+  background-repeat: repeat;
+  background-position: 0%;
+  background-color: #1a47f1;
+  border-top-color: #1a47f1;
+  border-right-color: #1a47f1;
+  border-bottom-color: #1a47f1;
+  border-left-color: #1a47f1;
+}
+
+/* Chrome */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  #tab_box {
+    margin-left: 3px;
+  }
+}

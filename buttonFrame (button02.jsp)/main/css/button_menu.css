@@ -1,0 +1,50 @@
+table,
+span,
+td {
+  margin: 0;
+  padding: 0;
+  border-spacing: 0px;
+}
+.button_div {
+  height: 30px;
+  min-width: 1024px;
+  background-color: #f3f3f3;
+  /* border-right: 1px solid #d6d7da; */
+}
+
+.btn_slide1 {
+  padding: 0px;
+  margin: 0px;
+  width: 20px;
+  height: 100%;
+  border: none;
+  background-image: url("../images/button/left.jpg");
+  cursor: pointer;
+  background-repeat: no-repeat;
+}
+/* IE7 ¿¡¼­ CSS Àû¿ëÀÌ ¾ÈµÇ±â ¶§¹®¿¡ inline À¸·Î style Àû¿ë */
+/* .btn_slide2{
+ 	padding: 0px; 
+ 	margin: 0px; 
+ 	margin-left: 1px;
+ 	width: 30px; 
+ 	height: 100%; 
+ 	border: none; 
+	background-image: url('../images/button/up.jpg'); 
+	cursor: pointer;
+	border-left: 1px solid #ffffff;
+ } */
+
+/* .button_tr td{ */
+/* 	border-right:1px solid #212121; */
+/* } */
+.button_last {
+  display: none;
+  background-image: url("../main2/KINGS1/image/Kings_56.gif");
+}
+
+img {
+  width: 79px;
+  height: 30px;
+  cursor: pointer;
+}
